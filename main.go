@@ -77,13 +77,17 @@ func updateAlbumById(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, error{"not_found"})
 }
 
-func main() {
+func getRouter() *gin.Engine {
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
 	router.GET("/albums/:id", getAlbumById)
 	router.POST("/albums", postAlbums)
 	router.DELETE("/albums/:id", deleteAlbumById)
 	router.PUT("/albums/:id", updateAlbumById)
+	return router
+}
 
+func main() {
+	router := getRouter()
 	router.Run("localhost:8080")
 }
