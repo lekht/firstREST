@@ -24,7 +24,7 @@ curl http://localhost:8080/albums/1 \
 ###
 curl -X "DELETE" http://localhost:8080/albums/1
 ###
-curl -X "PUT" http://localhost:8080/albums/1 /
+curl -X "PUT" http://localhost:8080/albums/2 \
     --include \
     --header "Content-Type: application/json" \
     --request "PUT" \
