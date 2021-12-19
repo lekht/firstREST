@@ -7,6 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type HttpError struct {
+	Error string `json:"error"`
+}
+
 type Storage interface {
 	Read() album
 	ReadOne(id string) (album, error)
@@ -27,10 +31,6 @@ type MemoryStorage struct {
 }
 
 var storage = NewMemoryStorage()
-
-type HttpError struct {
-	Error string `json:"error"`
-}
 
 func (s MemoryStorage) Create(am album) album {
 	s.albums = append(s.albums, am)
@@ -79,12 +79,6 @@ func NewMemoryStorage() MemoryStorage {
 	}
 	return MemoryStorage{albums: albums}
 }
-
-// var albums = []album{
-// 	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
-// 	{ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
-// 	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
-// }
 
 func getAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, storage.Read())
